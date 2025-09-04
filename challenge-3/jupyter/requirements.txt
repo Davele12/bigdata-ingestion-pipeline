@@ -1,0 +1,8 @@
+pandas
+pyarrow
+fastparquet
+requests
+boto3
+minio
+azure-storage-blob
+dlt
