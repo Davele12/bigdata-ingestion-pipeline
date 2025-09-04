@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  jupyter:
+    image: jupyter/base-notebook:latest  # Puedes cambiarlo por 'jupyter/datascience-notebook'
+    container_name: jupyter_notebook
+    ports:
+      - "8888:8888"   # Puerto local:contenedor
+    volumes:
+      - ./notebooks:/home/jovyan/work   # Carpeta local → carpeta en el contenedor
+    environment:
+      - JUPYTER_TOKEN=1234  # Token de acceso (puedes quitarlo para que genere uno aleatorio)
+    restart: unless-stopped
