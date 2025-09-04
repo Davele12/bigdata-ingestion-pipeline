@@ -1,0 +1,35 @@
+#Se crearon dos docker compose aquí para el levantamiento de ambos contenedores (Minio y Jupyter)
+
+version: "3.8"
+
+services:
+  minio:
+    image: minio/minio
+    container_name: minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"    #MinIO corre en localhost:9000 (API)
+      - "9001:9001"    #localhost:9001 (interfaz web).
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin123
+    volumes:
+      - ./minio_data:/data
+    networks:
+      - reto_net
+
+  jupyter:
+    image: jupyter/base-notebook
+    container_name: jupyter
+    ports:
+      - "8888:8888"    #Jupyter corre en localhost:8888
+    volumes:
+      - ./jupyter:/home/jovyan/work
+    networks:
+      - reto_net
+
+networks:
+  reto_net:
+    driver: bridge
+
+
